@@ -23,4 +23,4 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.2.0'
 }
 
-apply from:'upload_jcenter.gradle'
+//apply from:'upload_jcenter.gradle'
