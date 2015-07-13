@@ -60,7 +60,7 @@ md5签名
 * String getStringFromAssets(String fileName)  
 从Assets里读文本文件
 
-* String sendPost(String url, String param)
+* String sendPost(String url, String param)  
 最直接的post请求
 
 ***
