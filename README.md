@@ -69,7 +69,8 @@ Manager会自动根据你传进来的枚举类型名字初始化文件目录。
 并把目录作为对象提供常用文件操作。  
 JFileManager应该在Application里初始化。  
 用法示例
-
+          
+          //文件目录列表
           enum Dir{
               Image,Text,Object,
           }
@@ -78,8 +79,11 @@ JFileManager应该在Application里初始化。
               super.onCreate(savedInstanceState);
               setContentView(R.layout.activity_main);
               tvTitle = (TextView) findViewById(R.id.title);
+              //初始化传入文件目录列表，并初始化。
               FileManager.getInstance().init(this,Dir.values());
+              //根据枚举类型获取目录。
               FileManager.Folder folder = FileManager.getInstance().getFolder(Dir.Image);
+              //在目录下进行文件操作
               folder.writeObjectToFile("对象存储", "test");
               tvTitle.setText((String) folder.readObjectFromFile("test"));
           }
