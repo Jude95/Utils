@@ -1,4 +1,4 @@
-# Utils-android 轻武器库  
+# Utils-android开发轻武器库  
 JUtils:小功能集合  
 JActivityManager:Activity的管理类。保持所有存在activity引用  
 JFileManager:完全管理本地文件存储  
@@ -143,6 +143,6 @@ JFileManager应该在Application里初始化。
           }
           
 然后就可以在任何地方  
-`JActivityManager.getInstance().currentActivity()`获取当前activity  
+`JActivityManager.getInstance().currentActivity()`获取当前最顶层activity  
 `JActivityManager.getInstance().closeActivity(Activity activity)`关闭activity  
 `JActivityManager.getInstance().closeAllActivity()`关闭所有activity  
