@@ -63,6 +63,7 @@ md5签名
 * String sendPost(String url, String param)
 最直接的post请求
 
+***
 ###JFileManager
 Manager会自动根据你传进来的枚举类型名字初始化文件目录。
 并把目录作为对象提供常用文件操作。
@@ -83,7 +84,7 @@ JFileManager应该在Application里初始化。
               tvTitle.setText((String) folder.readObjectFromFile("test"));
           }
 
-
+***
 ###JTimeTransform
 不仅有时间戳，格式文本的解析。
 `String toString(DateFormat format)`可自定义的解析方式.
@@ -125,23 +126,23 @@ JFileManager应该在Application里初始化。
             }
         }
         
-
+***
 ###JActivityManager
 给每个activity
 
           @Override
           protected void onCreate(Bundle savedInstanceState) {
               super.onCreate(savedInstanceState);
-              ActivityManager.getInstance().pushActivity(this);
+              JActivityManager.getInstance().pushActivity(this);
           }
           
           @Override
           protected void onDestroy() {
               super.onDestroy();
-              ActivityManager.getInstance().popActivity(this);
+              JActivityManager.getInstance().popActivity(this);
           }
           
 然后就可以在任何地方  
-`currentActivity()`获取当前activity  
-`closeActivity(Activity activity)`关闭activity  
-`closeAllActivity()`关闭所有activity  
+`JActivityManager.getInstance().currentActivity()`获取当前activity  
+`JActivityManager.getInstance().closeActivity(Activity activity)`关闭activity  
+`JActivityManager.getInstance().closeAllActivity()`关闭所有activity  
