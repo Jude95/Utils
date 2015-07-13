@@ -64,17 +64,84 @@ md5签名
 最直接的post请求
 
 ###JFileManager
-`enum Dir{
-        Image,Text,Object,
-    }
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        tvTitle = (TextView) findViewById(R.id.title);
-        FileManager.getInstance().init(this,Dir.values());
-        FileManager.Folder folder = FileManager.getInstance().getFolder(Dir.Image);
-        folder.writeObjectToFile("对象存储", "test");
-        tvTitle.setText((String) folder.readObjectFromFile("test"));
-    }
-`
+Manager会自动根据你传进来的枚举类型名字初始化文件目录。
+并把目录作为对象提供常用文件操作。
+JFileManager应该在Application里初始化。
+用法示例
+
+          enum Dir{
+              Image,Text,Object,
+          }
+          @Override
+          protected void onCreate(Bundle savedInstanceState) {
+              super.onCreate(savedInstanceState);
+              setContentView(R.layout.activity_main);
+              tvTitle = (TextView) findViewById(R.id.title);
+              FileManager.getInstance().init(this,Dir.values());
+              FileManager.Folder folder = FileManager.getInstance().getFolder(Dir.Image);
+              folder.writeObjectToFile("对象存储", "test");
+              tvTitle.setText((String) folder.readObjectFromFile("test"));
+          }
+
+
+###JTimeTransform
+不仅有时间戳，格式文本的解析。
+`String toString(DateFormat format)`可自定义的解析方式.
+自定义示例：
+
+        public class RecentDateFormater implements TimeTransform.DateFormater{
+            @Override
+            public String format(TimeTransform date, long delta) {
+                if (delta>0){
+                    if (delta / TimeTransform.SECOND < 1){
+                        return delta +"秒前";
+                    }else if (delta / TimeTransform.HOUR < 1){
+                        return delta / TimeTransform.SECOND+"分钟前";
+                    }else if (delta / TimeTransform.DAY < 2 && new TimeTransform().getDay() == date.getDay()){
+                        return delta / TimeTransform.HOUR+"小时前";
+                    }else if (delta / TimeTransform.DAY < 3 && new TimeTransform().getDay() == new TimeTransform(date.getTimestamp()+TimeTransform.DAY).getDay()){
+                        return "昨天"+date.toString("HH:mm");
+                    }else if (delta / TimeTransform.DAY < 4 && new TimeTransform().getDay() == new TimeTransform(date.getTimestamp()+TimeTransform.DAY*2).getDay()){
+                        return "前天"+date.toString("HH:mm");
+                    }else{
+                        return date.toString("yyyy/MM/dd  hh:mm");
+                    }
+                }else{
+                    delta = -delta;
+                    if (delta / TimeTransform.SECOND < 1){
+                        return delta +"秒后";
+                    }else if (delta / TimeTransform.HOUR < 1){
+                        return delta / TimeTransform.SECOND+"分钟后";
+                    }else if (delta / TimeTransform.DAY > -2 && new TimeTransform().getDay() == date.getDay()){
+                        return delta / TimeTransform.HOUR+"小时后";
+                    }else if (delta / TimeTransform.DAY > -3 && new TimeTransform().getDay() == new TimeTransform(date.getTimestamp()-TimeTransform.DAY).getDay()){
+                        return "明天"+date.toString("HH:mm");
+                    }else if (delta / TimeTransform.DAY > -4 && new TimeTransform().getDay() == new TimeTransform(date.getTimestamp()-TimeTransform.DAY*2).getDay()){
+                        return "后天"+date.toString("HH:mm");
+                    }else{
+                        return date.toString("yyyy/MM/dd  hh:mm");
+                    }
+                }
+            }
+        }
+        
+
+###JActivityManager
+给每个activity
+
+          @Override
+          protected void onCreate(Bundle savedInstanceState) {
+              super.onCreate(savedInstanceState);
+              ActivityManager.getInstance().pushActivity(this);
+          }
+          
+          @Override
+          protected void onDestroy() {
+              super.onDestroy();
+              ActivityManager.getInstance().popActivity(this);
+          }
+          
+然后就可以在任何地方  
+`currentActivity()`获取当前activity  
+`closeActivity(Activity activity)`关闭activity  
+`closeAllActivity()`关闭所有activity  
