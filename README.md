@@ -65,9 +65,9 @@ md5签名
 
 ***
 ###JFileManager
-Manager会自动根据你传进来的枚举类型名字初始化文件目录。
-并把目录作为对象提供常用文件操作。
-JFileManager应该在Application里初始化。
+Manager会自动根据你传进来的枚举类型名字初始化文件目录。  
+并把目录作为对象提供常用文件操作。  
+JFileManager应该在Application里初始化。  
 用法示例
 
           enum Dir{
