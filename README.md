@@ -1,7 +1,7 @@
 # Utils-android开发轻武器库  
 JUtils:小功能集合  
 JActivityManager:Activity的管理类。保持所有存在activity引用  
-JFileManager:完全管理本地文件存储  
+JFileManager:data目录下文件管理  
 JTimeTransform:时间格式转换器
 
 ###添加依赖
@@ -70,7 +70,7 @@ md5签名
 
 ***
 ###JFileManager
-Manager会自动根据你传进来的枚举类型名字初始化文件目录。  
+Manager会自动根据你传进来的枚举类型名字初始化data目录。  
 并把目录作为对象提供常用文件操作。  
 JFileManager应该在Application里初始化。  
 用法示例
@@ -85,13 +85,13 @@ JFileManager应该在Application里初始化。
               setContentView(R.layout.activity_main);
               tvTitle = (TextView) findViewById(R.id.title);
               
-              //初始化传入文件目录列表，并初始化。
+              //初始化传入文件目录列表，并初始化。此处data目录下会生成Image,Text,Object3个文件夹
               FileManager.getInstance().init(this,Dir.values());
               
-              //根据枚举类型获取目录。
+              //根据枚举类型获取目录。Folder对象提供本目录下多种文件存取操作
               FileManager.Folder folder = FileManager.getInstance().getFolder(Dir.Image);
               
-              //在目录下进行文件操作
+              //eg:对象序列化存取
               folder.writeObjectToFile("对象存储", "test");
               tvTitle.setText((String) folder.readObjectFromFile("test"));
           }
