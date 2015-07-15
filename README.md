@@ -4,6 +4,11 @@ JActivityManager:Activity的管理类。保持所有存在activity引用
 JFileManager:完全管理本地文件存储  
 JTimeTransform:时间格式转换器
 
+##添加依赖
+`compile 'com.jude:utils:1.0.2'`
+
+
+
 ###JUtils###
 * void initialize(Application app)  
 在Application的OnCreate里面初始化    
