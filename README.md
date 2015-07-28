@@ -102,7 +102,7 @@ JFileManager应该在Application里初始化。
 `String toString(DateFormat format)`可自定义的解析方式.
 自定义示例：
 
-public class RecentDateFormat implements JTimeTransform.DateFormat{
+          public class RecentDateFormat implements JTimeTransform.DateFormat{
         @Override
         public String format(JTimeTransform date, long delta) {
             if (delta>0){
