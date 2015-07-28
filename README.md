@@ -102,41 +102,41 @@ JFileManager应该在Application里初始化。
 `String toString(DateFormat format)`可自定义的解析方式.
 自定义示例：
 
-        public class RecentDateFormater implements TimeTransform.DateFormater{
-            @Override
-            public String format(TimeTransform date, long delta) {
-                if (delta>0){
-                    if (delta / TimeTransform.SECOND < 1){
-                        return delta +"秒前";
-                    }else if (delta / TimeTransform.HOUR < 1){
-                        return delta / TimeTransform.SECOND+"分钟前";
-                    }else if (delta / TimeTransform.DAY < 2 && new TimeTransform().getDay() == date.getDay()){
-                        return delta / TimeTransform.HOUR+"小时前";
-                    }else if (delta / TimeTransform.DAY < 3 && new TimeTransform().getDay() == new TimeTransform(date.getTimestamp()+TimeTransform.DAY).getDay()){
-                        return "昨天"+date.toString("HH:mm");
-                    }else if (delta / TimeTransform.DAY < 4 && new TimeTransform().getDay() == new TimeTransform(date.getTimestamp()+TimeTransform.DAY*2).getDay()){
-                        return "前天"+date.toString("HH:mm");
-                    }else{
-                        return date.toString("yyyy/MM/dd  hh:mm");
-                    }
+public class RecentDateFormat implements JTimeTransform.DateFormat{
+        @Override
+        public String format(JTimeTransform date, long delta) {
+            if (delta>0){
+                if (delta / JTimeTransform.SECOND < 1){
+                    return delta +"秒前";
+                }else if (delta / JTimeTransform.HOUR < 1){
+                    return delta / JTimeTransform.SECOND+"分钟前";
+                }else if (delta / JTimeTransform.DAY < 2 && new JTimeTransform().getDay() == date.getDay()){
+                    return delta / JTimeTransform.HOUR+"小时前";
+                }else if (delta / JTimeTransform.DAY < 3 && new JTimeTransform().getDay() == new JTimeTransform(date.getTimestamp()+JTimeTransform.DAY).getDay()){
+                    return "昨天"+date.toString("HH:mm");
+                }else if (delta / JTimeTransform.DAY < 4 && new JTimeTransform().getDay() == new JTimeTransform(date.getTimestamp()+JTimeTransform.DAY*2).getDay()){
+                    return "前天"+date.toString("HH:mm");
                 }else{
-                    delta = -delta;
-                    if (delta / TimeTransform.SECOND < 1){
-                        return delta +"秒后";
-                    }else if (delta / TimeTransform.HOUR < 1){
-                        return delta / TimeTransform.SECOND+"分钟后";
-                    }else if (delta / TimeTransform.DAY > -2 && new TimeTransform().getDay() == date.getDay()){
-                        return delta / TimeTransform.HOUR+"小时后";
-                    }else if (delta / TimeTransform.DAY > -3 && new TimeTransform().getDay() == new TimeTransform(date.getTimestamp()-TimeTransform.DAY).getDay()){
-                        return "明天"+date.toString("HH:mm");
-                    }else if (delta / TimeTransform.DAY > -4 && new TimeTransform().getDay() == new TimeTransform(date.getTimestamp()-TimeTransform.DAY*2).getDay()){
-                        return "后天"+date.toString("HH:mm");
-                    }else{
-                        return date.toString("yyyy/MM/dd  hh:mm");
-                    }
+                    return date.toString("yyyy/MM/dd  hh:mm");
+                }
+            }else{
+                delta = -delta;
+                if (delta / JTimeTransform.SECOND < 1){
+                    return delta +"秒后";
+                }else if (delta / JTimeTransform.HOUR < 1){
+                    return delta / JTimeTransform.SECOND+"分钟后";
+                }else if (delta / JTimeTransform.DAY > -2 && new JTimeTransform().getDay() == date.getDay()){
+                    return delta / JTimeTransform.HOUR+"小时后";
+                }else if (delta / JTimeTransform.DAY > -3 && new JTimeTransform().getDay() == new JTimeTransform(date.getTimestamp()-JTimeTransform.DAY).getDay()){
+                    return "明天"+date.toString("HH:mm");
+                }else if (delta / JTimeTransform.DAY > -4 && new JTimeTransform().getDay() == new JTimeTransform(date.getTimestamp()-JTimeTransform.DAY*2).getDay()){
+                    return "后天"+date.toString("HH:mm");
+                }else{
+                    return date.toString("yyyy/MM/dd  hh:mm");
                 }
             }
         }
+    }
         
 ***
 ###JActivityManager
