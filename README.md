@@ -5,7 +5,7 @@ JFileManager:data目录下文件管理
 JTimeTransform:时间格式转换器
 
 ###添加依赖
-`compile 'com.jude:utils:1.0.6'`
+`compile 'com.jude:utils:1.0.7'`
 
 ***
 
