@@ -29,7 +29,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.lang.reflect.Field;
 import java.net.URL;
 import java.net.URLConnection;
 import java.security.MessageDigest;
@@ -109,22 +108,31 @@ public class JUtils {
 	 */
 	public static int getScreenHeight(){
 		DisplayMetrics dm = mApplicationContent.getResources().getDisplayMetrics();
-		
-		Class<?> c = null;
-		Object obj = null;
-		Field field = null;
-		int x = 0, sbar = 0;
-		try {
-		    c = Class.forName("com.android.internal.R$dimen");
-		    obj = c.newInstance();
-		    field = c.getField("status_bar_height");
-		    x = Integer.parseInt(field.get(obj).toString());
-		    sbar = mApplicationContent.getResources().getDimensionPixelSize(x);
-		} catch(Exception e1) {
-		}
-		
-		return dm.heightPixels-sbar;
+		return dm.heightPixels-getStatusBarHeight();
 	}
+
+	/**
+	 * 取屏幕高度包含状态栏高度
+	 * @return
+	 */
+	public static int getScreenHeightWithStatusBar(){
+		DisplayMetrics dm = mApplicationContent.getResources().getDisplayMetrics();
+		return dm.heightPixels;
+	}
+
+	/**
+	 * 取状态栏高度
+	 * @return
+	 */
+	public static int getStatusBarHeight() {
+		int result = 0;
+		int resourceId = mApplicationContent.getResources().getIdentifier("status_bar_height", "dimen", "android");
+		if (resourceId > 0) {
+			result = mApplicationContent.getResources().getDimensionPixelSize(resourceId);
+		}
+		return result;
+	}
+
 
 	/**
 	 * 关闭输入法
