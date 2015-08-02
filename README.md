@@ -29,10 +29,10 @@ int px2dip(float pxValue)
 dp与px的转换
 
 * int getScreenWidth()  
-int getScreenHeight()
-int getScreenHeightWithStatusBar()
-int getStatusBarHeight()
-取屏幕高宽。考虑了状态栏的高度。
+int getScreenHeight()  
+int getScreenHeightWithStatusBar()  
+int getStatusBarHeight()  
+取屏幕高宽。考虑了状态栏的高度。  
 
 * void closeInputMethod(Activity act)  
 关闭输入法。输入法焦点所在activity
