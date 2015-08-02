@@ -56,7 +56,7 @@ int getScreenHeight()
 * String getAppVersionName()  
 取APP版本名
 
-* Bitmap BitmapZoom(Bitmap b, float x, float y)
+* Bitmap BitmapZoom(Bitmap b, float x, float y)  
 将b拉伸到宽x，高y
 
 * String MD5(byte[] data)  
