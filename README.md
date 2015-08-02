@@ -65,6 +65,9 @@ md5签名
 * String getStringFromAssets(String fileName)  
 从Assets里读文本文件
 
+* Uri getUriFromRes(int id)
+读取资源文件Uri
+
 * String sendPost(String url, String param)  
 最直接的post请求
 
