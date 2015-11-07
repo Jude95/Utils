@@ -121,6 +121,20 @@ public class JUtils {
 	}
 
 	/**
+	 * 取导航栏高度
+	 * @return
+	 */
+	public static int getNavigationBarHeight() {
+		int result = 0;
+		int resourceId = mApplicationContent.getResources().getIdentifier("navigation_bar_height", "dimen", "android");
+		if (resourceId > 0) {
+			result = mApplicationContent.getResources().getDimensionPixelSize(resourceId);
+		}
+		return result;
+	}
+
+
+	/**
 	 * 取状态栏高度
 	 * @return
 	 */
@@ -132,7 +146,6 @@ public class JUtils {
 		}
 		return result;
 	}
-
 
 	/**
 	 * 关闭输入法
