@@ -5,7 +5,7 @@ JFileManager:data目录下文件管理
 JTimeTransform:时间格式转换器
 
 ###添加依赖
-`compile 'com.jude:utils:1.0.8'`
+`compile 'com.jude:utils:1.0.9'`
 
 ***
 
@@ -32,7 +32,9 @@ dp与px的转换
 int getScreenHeight()  
 int getScreenHeightWithStatusBar()  
 int getStatusBarHeight()  
-取屏幕高宽。考虑了状态栏的高度。  
+int getActionBarHeight()  
+int getNavigationBarHeight()  
+取各种视图的默认高度。  
 
 * void closeInputMethod(Activity act)  
 关闭输入法。输入法焦点所在activity

@@ -22,6 +22,7 @@ import android.net.Uri;
 import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
@@ -146,6 +147,19 @@ public class JUtils {
 		}
 		return result;
 	}
+
+    public static int getActionBarHeight() {
+		int actionBarHeight = 0;
+
+		final TypedValue tv = new TypedValue();
+        if (mApplicationContent.getTheme()
+                .resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
+            actionBarHeight = TypedValue.complexToDimensionPixelSize(
+                    tv.data, mApplicationContent.getResources().getDisplayMetrics());
+        }
+		return actionBarHeight;
+	}
+
 
 	/**
 	 * 关闭输入法
