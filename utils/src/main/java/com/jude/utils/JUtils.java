@@ -155,7 +155,7 @@ public class JUtils {
         if (mApplicationContent.getTheme()
                 .resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
             actionBarHeight = TypedValue.complexToDimensionPixelSize(
-                    tv.data, mApplicationContent.getResources().getDisplayMetrics());
+					tv.data, mApplicationContent.getResources().getDisplayMetrics());
         }
 		return actionBarHeight;
 	}
@@ -207,6 +207,21 @@ public class JUtils {
 		return mApplicationContent.getSharedPreferences(mApplicationContent.getPackageName(), Activity.MODE_PRIVATE);
 	}
 
+	/**
+	 * 获取SharedPreferences
+	 * @return SharedPreferences
+	 */
+	public static SharedPreferences getSharedPreference(String name) {
+		return mApplicationContent.getSharedPreferences(name, Activity.MODE_PRIVATE);
+	}
+
+	/**
+	 * 获取SharedPreferences
+	 * @return SharedPreferences
+	 */
+	public static SharedPreferences getSharedPreference(String name,int mode) {
+		return mApplicationContent.getSharedPreferences(name, mode);
+	}
 
 	/**
 	 * 经纬度测距
