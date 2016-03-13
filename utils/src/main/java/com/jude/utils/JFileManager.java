@@ -8,9 +8,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Reader;
+import java.io.Writer;
 import java.util.HashMap;
 
 /**
@@ -77,6 +81,64 @@ public class JFileManager {
         public File getFile(){
             return local;
         }
+
+        public File[] listChildFile(){
+            return local.listFiles();
+        }
+
+        public String readStringFromFile(String name){
+            File src = new File(local,name);
+            Reader reader = null;
+            try {
+                reader = new FileReader(src);
+                char[] flush = new char[10];
+                int len = 0;
+                StringBuilder sb = new StringBuilder();
+                while(-1!=(len = reader.read(flush)))
+                {
+                    sb.append(flush,0,len);
+                }
+                return sb.toString();
+            } catch (FileNotFoundException e) {
+                return null;
+            } catch (IOException e) {
+                return null;
+            }
+            finally
+            {
+                if(null!=reader)
+                {
+                    try {
+                        reader.close();
+                    } catch (IOException e) {
+                    }
+                }
+            }
+        }
+
+        public void writeStringToFile(String text,String name){
+            File dest = new File(local,name);
+            Writer wr = null;
+            try {
+                wr = new FileWriter(dest);
+                wr.write(text);
+                wr.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            finally
+            {
+                if(null!=wr)
+                {
+                    try {
+                        wr.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+
 
         public void writeObjectToFile(Object object, String name) {
             ObjectOutputStream objectOut = null;
