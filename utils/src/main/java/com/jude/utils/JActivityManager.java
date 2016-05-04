@@ -83,20 +83,31 @@ public class JActivityManager {
     }
 
     /**
-     * 退出指定名字的activity
+     * close a specific activity by its complete name.
+     *
+     * @param name For example: com.jude.utils.Activity_B
      */
     public void closeActivityByName(String name) {
+        int index = activityStack.size() - 1;
+
         while (true) {
-            Activity activity = currentActivity();
+            Activity activity = activityStack.get(index);
+
             if (null == activity) {
                 break;
             }
 
-            String activityName = activity.getComponentName().getClassName().toString();
-            if (TextUtils.equals(name, activityName)) {
+            String activityName = activity.getComponentName().getClassName();
+            if (!TextUtils.equals(name, activityName)) {
+                index--;
+                if (index < 0) {//avoid index out of bound.
+                    break;
+                }
                 continue;
             }
             popActivity(activity);
+            closeActivity(activity);
+            break;
         }
     }
 
