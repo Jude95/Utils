@@ -94,6 +94,8 @@ public class JFileManager {
                 char[] flush = new char[10];
                 int len = 0;
                 StringBuilder sb = new StringBuilder();
+                char a;
+                Character.isLetter('a');
                 while(-1!=(len = reader.read(flush)))
                 {
                     sb.append(flush,0,len);

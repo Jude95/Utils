@@ -19,6 +19,7 @@ import android.graphics.Matrix;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -195,8 +196,13 @@ public class JUtils {
 	 * @param text
 	 */
 	public static void copyToClipboard(String text){
-		ClipboardManager cbm = (ClipboardManager) mApplicationContent.getSystemService(Activity.CLIPBOARD_SERVICE);
-		cbm.setPrimaryClip(ClipData.newPlainText(mApplicationContent.getPackageName(), text));
+		if(Build.VERSION.SDK_INT >= 11){
+			ClipboardManager cbm = (ClipboardManager) mApplicationContent.getSystemService(Activity.CLIPBOARD_SERVICE);
+			cbm.setPrimaryClip(ClipData.newPlainText(mApplicationContent.getPackageName(), text));
+		}else {
+			android.text.ClipboardManager cbm = (android.text.ClipboardManager) mApplicationContent.getSystemService(Activity.CLIPBOARD_SERVICE);
+			cbm.setText(text);
+		}
 	}
 
 	/**

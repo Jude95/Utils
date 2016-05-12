@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        minSdkVersion 11
+        minSdkVersion 7
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -19,8 +19,6 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:23.3.0'
 }
 
 ext {
@@ -33,7 +31,7 @@ ext {
     siteUrl = 'https://github.com/Jude95/Utils'
     gitUrl = 'https://github.com/Jude95/Utils'
 
-    libraryVersion = '1.1.2'//版本号
+    libraryVersion = '1.1.3'//版本号
     libraryName = 'utils'//项目名字，没什么用
     libraryDescription = 'A tool for Android'//项目描述，没什么用
 
