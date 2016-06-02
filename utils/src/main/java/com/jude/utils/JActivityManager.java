@@ -21,7 +21,7 @@ public class JActivityManager {
 
         @Override
         public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-            activityStack.add(activity);
+
         }
 
         @Override
