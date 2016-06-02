@@ -36,7 +36,6 @@ import java.net.URLConnection;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
-
 public class JUtils {
 	public static String TAG;
 	public static boolean DEBUG = false;

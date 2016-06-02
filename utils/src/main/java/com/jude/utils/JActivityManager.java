@@ -5,22 +5,58 @@ package com.jude.utils;
  * 管理Activity的类
  */
 
+import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.Application;
+import android.os.Bundle;
 import android.text.TextUtils;
 
-import java.util.LinkedList;
+import java.util.Stack;
 
+@TargetApi(14)
 public class JActivityManager {
-    private static LinkedList<Activity> activityStack;
-    private static JActivityManager instance;
+    private static Stack<Activity> activityStack = new Stack<>();
+    private static final JActivityLifecycleCallbacks instance = new JActivityLifecycleCallbacks();
+    private static class JActivityLifecycleCallbacks implements Application.ActivityLifecycleCallbacks{
 
-    private JActivityManager() {
+        @Override
+        public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+            activityStack.add(activity);
+        }
+
+        @Override
+        public void onActivityStarted(Activity activity) {
+
+        }
+
+        @Override
+        public void onActivityResumed(Activity activity) {
+            activityStack.remove(activity);
+            activityStack.push(activity);
+        }
+
+        @Override
+        public void onActivityPaused(Activity activity) {
+
+        }
+
+        @Override
+        public void onActivityStopped(Activity activity) {
+
+        }
+
+        @Override
+        public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+
+        }
+
+        @Override
+        public void onActivityDestroyed(Activity activity) {
+            activityStack.remove(activity);
+        }
     }
 
-    public static JActivityManager getInstance() {
-        if (instance == null) {
-            instance = new JActivityManager();
-        }
+    public static Application.ActivityLifecycleCallbacks getActivityLifecycleCallbacks(){
         return instance;
     }
 
@@ -29,32 +65,11 @@ public class JActivityManager {
      *
      * @return
      */
-    public Activity currentActivity() {
+    public static Activity currentActivity() {
         Activity activity = null;
-        if (activityStack != null && !activityStack.isEmpty())
-            activity = activityStack.get(activityStack.size() - 1);
+        if (!activityStack.isEmpty())
+            activity = activityStack.peek();
         return activity;
-    }
-
-    /**
-     * 将当前Activity推入栈中
-     *
-     * @param activity
-     */
-    public void pushActivity(Activity activity) {
-        if (activityStack == null) {
-            activityStack = new LinkedList<Activity>();
-        }
-        activityStack.add(activity);
-    }
-
-    /**
-     * 将Activity退出栈
-     *
-     * @param activity
-     */
-    public void popActivity(Activity activity) {
-        activityStack.remove(activity);
     }
 
     /**
@@ -62,15 +77,12 @@ public class JActivityManager {
      *
      * @param activity
      */
-    public void closeActivity(Activity activity) {
+    public static void closeActivity(Activity activity) {
         if (activity != null) {
             activityStack.remove(activity);
             activity.finish();
         }
     }
-
-
-
 
     public void closeAllActivity() {
         while (true) {
@@ -87,7 +99,7 @@ public class JActivityManager {
      *
      * @param name For example: com.jude.utils.Activity_B
      */
-    public void closeActivityByName(String name) {
+    public static void closeActivityByName(String name) {
         int index = activityStack.size() - 1;
 
         while (true) {
@@ -105,7 +117,6 @@ public class JActivityManager {
                 }
                 continue;
             }
-            popActivity(activity);
             closeActivity(activity);
             break;
         }
@@ -114,13 +125,19 @@ public class JActivityManager {
     /**
      * 获得当前ACTIVITY 名字
      */
-    public String getCurrentActivityName() {
+    public static String getCurrentActivityName() {
         Activity activity = currentActivity();
         String name = "";
         if (activity != null) {
             name = activity.getComponentName().getClassName().toString();
         }
         return name;
+    }
+
+    public static Stack<Activity> getActivityStack(){
+        Stack<Activity> stack = new Stack<>();
+        stack.addAll(activityStack);
+        return stack;
     }
 
 }

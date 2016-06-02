@@ -5,7 +5,7 @@ JFileManager:data目录下文件管理
 JTimeTransform:时间格式转换器
 
 ###添加依赖
-`compile 'com.jude:utils:1.1.3'`
+`compile 'com.jude:utils:1.2.0'`
 
 ***
 
@@ -81,7 +81,7 @@ Manager会自动根据你传进来的枚举类型名字初始化data目录。
 并把目录作为对象提供常用文件操作。  
 JFileManager应该在Application里初始化。  
 用法示例
-          
+```java    
           //文件目录列表
           enum Dir{
               Image,Text,Object,
@@ -102,6 +102,7 @@ JFileManager应该在Application里初始化。
               folder.writeObjectToFile("对象存储", "test");
               tvTitle.setText((String) folder.readObjectFromFile("test"));
           }
+```
 
 ***
 ###JTimeTransform
@@ -113,20 +114,10 @@ JFileManager应该在Application里初始化。
     
 可以自动判断`x秒前`,`x分钟前`,`x小时前`,`昨天`,`x天前`
 ###JActivityManager
-给每个activity
-
-          @Override
-          protected void onCreate(Bundle savedInstanceState) {
-              super.onCreate(savedInstanceState);
-              JActivityManager.getInstance().pushActivity(this);
-          }
-          
-          @Override
-          protected void onDestroy() {
-              super.onDestroy();
-              JActivityManager.getInstance().popActivity(this);
-          }
-          
+在Application中注册
+```java
+registerActivityLifecycleCallbacks(JActivityManager.getActivityLifecycleCallbacks());
+```
 然后就可以在任何地方  
 `JActivityManager.getInstance().currentActivity()`获取当前最顶层activity  
 `JActivityManager.getInstance().closeActivity(Activity activity)`关闭activity  
