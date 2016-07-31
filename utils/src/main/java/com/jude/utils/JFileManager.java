@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Reader;
+import java.io.Serializable;
 import java.io.Writer;
 import java.util.HashMap;
 
@@ -92,10 +93,8 @@ public class JFileManager {
             try {
                 reader = new FileReader(src);
                 char[] flush = new char[10];
-                int len = 0;
+                int len;
                 StringBuilder sb = new StringBuilder();
-                char a;
-                Character.isLetter('a');
                 while(-1!=(len = reader.read(flush)))
                 {
                     sb.append(flush,0,len);
@@ -142,7 +141,7 @@ public class JFileManager {
         }
 
 
-        public void writeObjectToFile(Object object, String name) {
+        public void writeObjectToFile(Serializable object, String name) {
             ObjectOutputStream objectOut = null;
             FileOutputStream fileOut = null;
             try {
@@ -184,15 +183,6 @@ public class JFileManager {
                 fileIn = new FileInputStream(getChildFile(name));
                 objectIn = new ObjectInputStream(fileIn);
                 object = objectIn.readObject();
-
-            } catch (FileNotFoundException e) {
-                // Do nothing
-            }catch (NullPointerException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
             } catch (Exception e) {
                 e.printStackTrace();
             }finally {
