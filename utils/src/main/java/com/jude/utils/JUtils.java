@@ -39,10 +39,10 @@ import java.util.List;
 public class JUtils {
 	public static String TAG;
 	public static boolean DEBUG = false;
-	private static Context mApplicationContent;
+	private static Application mApplicationContent;
 
 	public static void initialize(Application app){
-		mApplicationContent = app.getApplicationContext();
+		mApplicationContent = app;
 	}
 
 	
@@ -51,6 +51,9 @@ public class JUtils {
 		JUtils.DEBUG = isDebug;
 	}
 
+	public static Application getApplication(){
+		return mApplicationContent;
+	}
 
 
 	public static void Log(String TAG,String text){

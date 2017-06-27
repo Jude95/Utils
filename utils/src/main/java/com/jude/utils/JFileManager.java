@@ -176,7 +176,7 @@ public class JFileManager {
             }
         }
 
-        public Object readObjectFromFile(String name) {
+        public <T> T readObjectFromFile(String name) throws IOException{
             ObjectInputStream objectIn = null;
             Object object = null;
             FileInputStream fileIn = null;
@@ -184,35 +184,20 @@ public class JFileManager {
                 fileIn = new FileInputStream(getChildFile(name));
                 objectIn = new ObjectInputStream(fileIn);
                 object = objectIn.readObject();
-
-            } catch (FileNotFoundException e) {
-                // Do nothing
-            }catch (NullPointerException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }finally {
+            }catch (ClassNotFoundException e) {
+                throw new IOException("ClassNotFoundException:"+e.getLocalizedMessage(),e);
+            } finally {
                 if (objectIn != null) {
-                    try {
-                        objectIn.close();
-                    } catch (IOException e) {
-                        // do nowt
-                    }
+                    objectIn.close();
                 }
                 if(fileIn != null){
-                    try {
-                        fileIn.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    fileIn.close();
                 }
             }
-
-            return object;
+            if (object != null){
+                return (T) object;
+            }
+            throw new IOException("read error");
         }
 
         /**

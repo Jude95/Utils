@@ -1,12 +1,12 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    compileSdkVersion 26
+    buildToolsVersion "26.0.0"
 
     defaultConfig {
-        minSdkVersion 8
-        targetSdkVersion 23
+        minSdkVersion 9
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
     }
@@ -16,35 +16,36 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
 }
 
 ext {
-    bintrayRepo = 'maven'////bintray上的仓库名，一般为maven
-    bintrayName = 'utils'//bintray上的项目名
+    package_repo = 'maven' // bintray上的仓库名，一般为maven
+    package_type = 'aar'  // 输出类型
+    package_group = 'com.jude' // JCenter的GroupId
+    package_artifact = 'utils' // JCenter的ArtifactId
+    package_version = '1.2.2'  // JCenter的VersionId
+    package_description = 'A tool for Android'
 
-    publishedGroupId = 'com.jude'//JCenter的GroupId
-    artifact = 'utils'//JCenter的ArtifactId
+    // 以下选填
 
-    siteUrl = 'https://github.com/Jude95/Utils'
-    gitUrl = 'https://github.com/Jude95/Utils'
-
-    libraryVersion = '1.2.1'//版本号
-    libraryName = 'utils'//项目名字，没什么用
-    libraryDescription = 'A tool for Android'//项目描述，没什么用
+    siteUrl = 'https://github.com/Jude95/utils'
+    gitUrl = 'https://github.com/Jude95/utils'
 
     //开发者信息
-    developerId = 'jude95'
-    developerName = 'jude95'
-    developerEmail = 'jude@helloworld.moe'
+    developerId = ''
+    developerName = ''
+    developerEmail = ''
 
-    //以上所有信息自行修改，以下不变
-
+    //开源协议
     licenseName = 'The Apache Software License, Version 2.0'
     licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
     allLicenses = ["Apache-2.0"]
 }
-apply from:'https://raw.githubusercontent.com/Jude95/JCenter/master/install.gradle'
-apply from:'https://raw.githubusercontent.com/Jude95/JCenter/master/bintray.gradle'
+apply from:'https://cdn.rawgit.com/Jude95/JCenter/v2/bintray.gradle'

@@ -4,12 +4,11 @@ JActivityManager:Activity的管理类。保持所有存在activity引用
 JFileManager:data目录下文件管理  
 JTimeTransform:时间格式转换器
 
-###添加依赖
-`compile 'com.jude:utils:1.2.1'`
+### 添加依赖
+`compile 'com.jude:utils:1.2.2'`
 
-***
 
-###JUtils###
+### API
 * void initialize(Application app)  
 在Application的OnCreate里面初始化    
 
@@ -75,8 +74,8 @@ md5签名
 * String sendPost(String url, String param)  
 最直接的post请求
 
-***
-###JFileManager
+
+### JFileManager
 Manager会自动根据你传进来的枚举类型名字初始化data目录。  
 并把目录作为对象提供常用文件操作。  
 JFileManager应该在Application里初始化。  
@@ -104,8 +103,8 @@ JFileManager应该在Application里初始化。
           }
 ```
 
-***
-###JTimeTransform
+
+### JTimeTransform
 不仅有时间戳，格式文本的解析。
 `String toString(DateFormat format)`可自定义的解析方式.
 自带一种实现`JTimeTransform.RecentDateFormat`,这样使用就好了：
@@ -113,7 +112,7 @@ JFileManager应该在Application里初始化。
     new JTimeTransform(data.getTime()).toString(new JTimeTransform.RecentDateFormat())
     
 可以自动判断`x秒前`,`x分钟前`,`x小时前`,`昨天`,`x天前`
-###JActivityManager
+### JActivityManager
 在Application中注册
 ```java
 registerActivityLifecycleCallbacks(JActivityManager.getActivityLifecycleCallbacks());
